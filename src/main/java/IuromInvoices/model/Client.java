@@ -1,4 +1,4 @@
-package Iurom.s.invoices.model;
+package IuromInvoices.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 

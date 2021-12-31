@@ -1,7 +1,7 @@
-package Iurom.s.invoices.service;
+package IuromInvoices.service;
 
-import Iurom.s.invoices.dao.daoClient.ClientDao;
-import Iurom.s.invoices.model.Client;
+import IuromInvoices.dao.daoClient.ClientDao;
+import IuromInvoices.model.Client;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
