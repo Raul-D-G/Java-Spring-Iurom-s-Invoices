@@ -2,14 +2,21 @@ package IuromInvoices.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import javax.validation.constraints.NotBlank;
 import java.util.UUID;
 
 public class Client {
 
     private final UUID id;
+
+    @NotBlank
     private final String nume;
+
+    @NotBlank
     private final String cui;
+    @NotBlank
     private final String adresa;
+    @NotBlank
     private final String nrCont;
 
     public Client(@JsonProperty("id") UUID id,
