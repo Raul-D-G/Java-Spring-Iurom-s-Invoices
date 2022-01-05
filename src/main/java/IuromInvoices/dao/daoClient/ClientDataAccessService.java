@@ -21,7 +21,21 @@ public class ClientDataAccessService implements ClientDao {
 
     @Override
     public int insertClient(UUID id, Client client) {
-        return 0;
+        String sql = "INSERT INTO clients (" +
+                " id, " +
+                " nume, " +
+                " cui, " +
+                " adresa, " +
+                " nrcont)" +
+                "VALUES (?, ?, ?, ?, ?)";
+        return jdbcTemplate.update(
+                sql,
+                id,
+                client.getNume(),
+                client.getCui(),
+                client.getAdresa(),
+                client.getNrCont()
+        );
     }
 
     @Override
@@ -39,16 +53,44 @@ public class ClientDataAccessService implements ClientDao {
 
     @Override
     public Optional<Client> selectClientById(UUID id) {
-        return Optional.empty();
+        final String sql = "SELECT id, nume, cui, adresa, nrcont FROM clients where id = ?";
+        Client client = jdbcTemplate.queryForObject(
+                sql,
+                new Object[]{id},
+                (resultSet, i) -> {
+                    UUID clientId = UUID.fromString(resultSet.getString("id"));
+                    String nume = resultSet.getString("nume");
+                    String cui = resultSet.getString("cui");
+                    String adresa = resultSet.getString("adresa");
+                    String nrCont = resultSet.getString("nrcont");
+                    return new Client(clientId, nume, cui, adresa, nrCont);
+        });
+        return Optional.ofNullable(client);
     }
 
     @Override
     public int deleteClientById(UUID id) {
-        return 0;
+        String sql = "DELETE FROM clients " +
+                "WHERE id = ?";
+        return jdbcTemplate.update(sql, id);
     }
 
     @Override
     public int updateClientById(UUID id, Client client) {
-        return 0;
+        String sql = "UPDATE clients " +
+                "SET nume = ?, " +
+                " cui = ?, " +
+                " adresa = ?, " +
+                " nrcont = ? " +
+                "WHERE id = ?";
+
+        return jdbcTemplate.update(
+                sql,
+                client.getNume(),
+                client.getCui(),
+                client.getAdresa(),
+                client.getNrCont(),
+                id
+        );
     }
 }
