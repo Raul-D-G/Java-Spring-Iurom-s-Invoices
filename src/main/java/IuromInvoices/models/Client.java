@@ -1,4 +1,4 @@
-package IuromInvoices.model;
+package IuromInvoices.models;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -8,10 +8,8 @@ import java.util.UUID;
 public class Client {
 
     private final UUID id;
-
     @NotBlank
     private final String nume;
-
     @NotBlank
     private final String cui;
     @NotBlank

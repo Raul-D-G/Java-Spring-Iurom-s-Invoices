@@ -1,6 +1,6 @@
 package IuromInvoices.dao.daoClient;
 
-import IuromInvoices.model.Client;
+import IuromInvoices.models.Client;
 
 import java.util.List;
 import java.util.Optional;

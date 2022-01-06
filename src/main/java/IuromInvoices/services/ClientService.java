@@ -1,7 +1,7 @@
-package IuromInvoices.service;
+package IuromInvoices.services;
 
 import IuromInvoices.dao.daoClient.ClientDao;
-import IuromInvoices.model.Client;
+import IuromInvoices.models.Client;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
@@ -16,7 +16,7 @@ public class ClientService {
     private final ClientDao clientDao;
 
     @Autowired
-    public ClientService(@Qualifier("postgres") ClientDao clientDao) {
+    public ClientService(@Qualifier("postgresClient") ClientDao clientDao) {
         this.clientDao = clientDao;
     }
 
@@ -32,11 +32,11 @@ public class ClientService {
         return clientDao.selectClientById(id);
     }
 
-    public int deleteClient (UUID id) {
+    public int deleteClient(UUID id) {
         return clientDao.deleteClientById(id);
     }
 
-    public int  updateClient (UUID id, Client client) {
+    public int  updateClient(UUID id, Client client) {
         return clientDao.updateClientById(id, client);
     }
 }

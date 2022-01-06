@@ -1,6 +1,6 @@
 package IuromInvoices.dao.daoClient;
 
-import IuromInvoices.model.Client;
+import IuromInvoices.models.Client;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;

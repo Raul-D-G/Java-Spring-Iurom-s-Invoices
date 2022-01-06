@@ -1,6 +1,6 @@
 package IuromInvoices.dao.daoClient;
 
-import IuromInvoices.model.Client;
+import IuromInvoices.models.Client;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
-@Repository("postgres")
+@Repository("postgresClient")
 public class ClientDataAccessService implements ClientDao {
 
     private final JdbcTemplate jdbcTemplate;

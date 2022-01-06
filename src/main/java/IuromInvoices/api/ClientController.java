@@ -1,7 +1,7 @@
 package IuromInvoices.api;
 
-import IuromInvoices.model.Client;
-import IuromInvoices.service.ClientService;
+import IuromInvoices.models.Client;
+import IuromInvoices.services.ClientService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.lang.NonNull;
 import org.springframework.web.bind.annotation.*;
