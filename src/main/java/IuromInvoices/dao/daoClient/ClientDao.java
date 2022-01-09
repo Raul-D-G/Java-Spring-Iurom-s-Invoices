@@ -8,9 +8,9 @@ import java.util.UUID;
 
 public interface ClientDao {
 
-    int insertClient(UUID id, Client client);
+    Client insertClient(UUID id, Client client);
 
-    default int insertClient(Client client) {
+    default Client insertClient(Client client) {
         UUID id = UUID.randomUUID();
         return insertClient(id, client);
     }

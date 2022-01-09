@@ -1,6 +1,7 @@
 package IuromInvoices.services;
 
 import IuromInvoices.dao.daoClient.ClientDao;
+import IuromInvoices.exception.ClientNotFoundException;
 import IuromInvoices.models.Client;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -20,7 +21,7 @@ public class ClientService {
         this.clientDao = clientDao;
     }
 
-    public int addClient(Client client) {
+    public Client addClient(Client client) {
         return clientDao.insertClient(client);
     }
 
@@ -28,8 +29,13 @@ public class ClientService {
         return clientDao.selectAllClients();
     }
 
-    public Optional<Client> getClientById(UUID id) {
-        return clientDao.selectClientById(id);
+    public Client getClientById(UUID id) {
+        Optional<Client> clientOptional = clientDao.selectClientById(id);
+        if (clientOptional.isPresent()) {
+            return clientOptional.get();
+        } else {
+            throw new ClientNotFoundException();
+        }
     }
 
     public int deleteClient(UUID id) {

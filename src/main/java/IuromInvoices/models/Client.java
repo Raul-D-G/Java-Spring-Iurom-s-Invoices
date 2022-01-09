@@ -7,7 +7,7 @@ import java.util.UUID;
 
 public class Client {
 
-    private final UUID id;
+    private UUID id;
     @NotBlank
     private final String nume;
     @NotBlank
@@ -16,6 +16,16 @@ public class Client {
     private final String adresa;
     @NotBlank
     private final String nrCont;
+
+    public Client(@JsonProperty("nume") String nume,
+                  @JsonProperty("cui") String cui,
+                  @JsonProperty("adresa") String adresa,
+                  @JsonProperty("nrCont") String nrCont) {
+        this.nume = nume;
+        this.cui = cui;
+        this.adresa = adresa;
+        this.nrCont = nrCont;
+    }
 
     public Client(@JsonProperty("id") UUID id,
                   @JsonProperty("nume") String nume,
@@ -27,6 +37,10 @@ public class Client {
         this.cui = cui;
         this.adresa = adresa;
         this.nrCont = nrCont;
+    }
+
+    public void setId(UUID id) {
+        this.id = id;
     }
 
     public UUID getId() {

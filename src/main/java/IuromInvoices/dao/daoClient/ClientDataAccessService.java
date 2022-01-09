@@ -20,7 +20,7 @@ public class ClientDataAccessService implements ClientDao {
     }
 
     @Override
-    public int insertClient(UUID id, Client client) {
+    public Client insertClient(UUID id, Client client) {
         String sql = "INSERT INTO clients (" +
                 " id, " +
                 " nume, " +
@@ -28,7 +28,7 @@ public class ClientDataAccessService implements ClientDao {
                 " adresa, " +
                 " nrcont)" +
                 "VALUES (?, ?, ?, ?, ?)";
-        return jdbcTemplate.update(
+        jdbcTemplate.update(
                 sql,
                 id,
                 client.getNume(),
@@ -36,6 +36,8 @@ public class ClientDataAccessService implements ClientDao {
                 client.getAdresa(),
                 client.getNrCont()
         );
+        client.setId(id);
+        return client;
     }
 
     @Override
