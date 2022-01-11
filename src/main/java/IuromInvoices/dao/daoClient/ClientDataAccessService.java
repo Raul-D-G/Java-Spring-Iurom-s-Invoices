@@ -1,8 +1,10 @@
 package IuromInvoices.dao.daoClient;
 
+import IuromInvoices.exception.ClientNotFoundException;
 import IuromInvoices.models.Client;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -56,25 +58,30 @@ public class ClientDataAccessService implements ClientDao {
     @Override
     public Optional<Client> selectClientById(UUID id) {
         final String sql = "SELECT id, nume, cui, adresa, nrcont FROM clients where id = ?";
-        Client client = jdbcTemplate.queryForObject(
+        RowMapper<Client> mapper = (resultSet, i) -> {
+            UUID clientId = UUID.fromString(resultSet.getString("id"));
+            String nume = resultSet.getString("nume");
+            String cui = resultSet.getString("cui");
+            String adresa = resultSet.getString("adresa");
+            String nrCont = resultSet.getString("nrcont");
+            return new Client(clientId, nume, cui, adresa, nrCont);
+        };
+        List<Client> client = jdbcTemplate.query(
                 sql,
-                new Object[]{id},
-                (resultSet, i) -> {
-                    UUID clientId = UUID.fromString(resultSet.getString("id"));
-                    String nume = resultSet.getString("nume");
-                    String cui = resultSet.getString("cui");
-                    String adresa = resultSet.getString("adresa");
-                    String nrCont = resultSet.getString("nrcont");
-                    return new Client(clientId, nume, cui, adresa, nrCont);
-        });
-        return Optional.ofNullable(client);
+                mapper,
+                id);
+        if (!client.isEmpty()) {
+            return Optional.of(client.get(0));
+        } else {
+            return Optional.empty();
+        }
     }
 
     @Override
-    public int deleteClientById(UUID id) {
+    public boolean deleteClientById(UUID id) {
         String sql = "DELETE FROM clients " +
                 "WHERE id = ?";
-        return jdbcTemplate.update(sql, id);
+        return jdbcTemplate.update(sql, id) == 1;
     }
 
     @Override

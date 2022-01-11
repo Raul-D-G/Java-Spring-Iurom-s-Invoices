@@ -5,6 +5,7 @@ import IuromInvoices.mapper.ClientMapper;
 import IuromInvoices.models.Client;
 import IuromInvoices.services.ClientService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.lang.NonNull;
 import org.springframework.validation.annotation.Validated;
@@ -49,12 +50,18 @@ public class ClientController {
     }
 
     @DeleteMapping(path = "{id}")
-    public void deleteClient(@PathVariable("id") UUID id) {
-        clientService.deleteClient(id);
+    public ResponseEntity<Void> deleteClient(@PathVariable("id") UUID id) {
+        var isRemoved = clientService.deleteClient(id);
+        if (!isRemoved) {
+            return ResponseEntity.notFound().build();
+        }
+
+        return ResponseEntity.ok().build();
     }
 
     @PutMapping(path = "{id}")
-    public void updateClinet(@PathVariable("id") UUID id, @Valid @NonNull @RequestBody Client clientToUpdate) {
-        clientService.updateClient(id, clientToUpdate);
+    public Client updateClinet(@PathVariable("id") UUID id, @Valid @NonNull @RequestBody ClientRequest clientToUpdateRequest) {
+        Client clientToUpdate = clientMapper.clientRequestToClient(clientToUpdateRequest);
+        return clientService.updateClient(id, clientToUpdate);
     }
 }

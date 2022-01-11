@@ -19,7 +19,7 @@ public interface ClientDao {
 
     Optional<Client> selectClientById(UUID id);
 
-    int deleteClientById(UUID id);
+    boolean deleteClientById(UUID id);
 
     int updateClientById(UUID id, Client client);
 }

@@ -38,11 +38,16 @@ public class ClientService {
         }
     }
 
-    public int deleteClient(UUID id) {
+    public boolean deleteClient(UUID id) {
         return clientDao.deleteClientById(id);
     }
 
-    public int  updateClient(UUID id, Client client) {
-        return clientDao.updateClientById(id, client);
+    public Client updateClient(UUID id, Client client) {
+        var updatedCleint = clientDao.updateClientById(id, client);
+        if (updatedCleint ==  1) {
+            return getClientById(id);
+        } else {
+            throw new ClientNotFoundException();
+        }
     }
 }
