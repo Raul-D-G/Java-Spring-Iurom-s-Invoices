@@ -5,7 +5,6 @@ import IuromInvoices.mapper.ClientMapper;
 import IuromInvoices.models.Client;
 import IuromInvoices.services.ClientService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.lang.NonNull;
 import org.springframework.validation.annotation.Validated;
