@@ -8,9 +8,9 @@ import java.util.UUID;
 
 public interface ProdusDao {
 
-    int insertProdus(UUID id, Produs produs);
+    Produs insertProdus(UUID id, Produs produs);
 
-    default int insertProdus(Produs produs) {
+    default Produs insertProdus(Produs produs) {
         UUID id = UUID.randomUUID();
         return insertProdus(id, produs);
     }
@@ -19,7 +19,7 @@ public interface ProdusDao {
 
     Optional<Produs> selectProdusById(UUID id);
 
-    int deleteProdusById(UUID id);
+    boolean deleteProdusById(UUID id);
 
     int updateProdusById(UUID id, Produs produs);
 }

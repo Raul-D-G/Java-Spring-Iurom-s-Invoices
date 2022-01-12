@@ -1,0 +1,2 @@
+ALTER TABLE produse
+DROP COLUMN tva;

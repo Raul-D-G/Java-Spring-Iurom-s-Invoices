@@ -59,7 +59,7 @@ public class ClientController {
     }
 
     @PutMapping(path = "{id}")
-    public Client updateClinet(@PathVariable("id") UUID id, @Valid @NonNull @RequestBody ClientRequest clientToUpdateRequest) {
+    public Client updateClient(@PathVariable("id") UUID id, @Valid @NonNull @RequestBody ClientRequest clientToUpdateRequest) {
         Client clientToUpdate = clientMapper.clientRequestToClient(clientToUpdateRequest);
         return clientService.updateClient(id, clientToUpdate);
     }

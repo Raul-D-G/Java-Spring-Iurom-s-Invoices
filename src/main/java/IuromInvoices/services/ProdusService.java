@@ -1,8 +1,12 @@
 package IuromInvoices.services;
 
 import IuromInvoices.dao.daoProdus.ProdusDao;
+import IuromInvoices.exception.ClientNotFoundException;
+import IuromInvoices.exception.ProdusNotFoundException;
+import IuromInvoices.models.Client;
 import IuromInvoices.models.Produs;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -15,11 +19,11 @@ public class ProdusService {
     private final ProdusDao produsDao;
 
     @Autowired
-    public ProdusService(ProdusDao produsDao) {
+    public ProdusService(@Qualifier("postgresProdus") ProdusDao produsDao) {
         this.produsDao = produsDao;
     }
 
-    public int addProdus(Produs produs) {
+    public Produs addProdus(Produs produs) {
         return produsDao.insertProdus(produs);
     }
 
@@ -27,15 +31,27 @@ public class ProdusService {
         return produsDao.selectAllProduse();
     }
 
-    public Optional<Produs> getProdusById(UUID id) {
-        return produsDao.selectProdusById(id);
+    public Produs getProdusById(UUID id) {
+        Optional<Produs> produsOptional = produsDao.selectProdusById(id);
+
+        if (produsOptional.isPresent()) {
+            return produsOptional.get();
+        } else {
+            throw new ProdusNotFoundException();
+        }
     }
 
-    public int deleteProdus(UUID id) {
+    public boolean deleteProdus(UUID id) {
         return produsDao.deleteProdusById(id);
     }
 
-    public int updateProdus(UUID id, Produs produs) {
-        return produsDao.updateProdusById(id, produs);
+    public Produs updateProdus(UUID id, Produs produs) {
+
+        var updatedProdus = produsDao.updateProdusById(id, produs);
+        if (updatedProdus ==  1) {
+            return getProdusById(id);
+        } else {
+            throw new ClientNotFoundException();
+        }
     }
 }

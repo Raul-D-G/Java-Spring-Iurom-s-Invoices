@@ -1,6 +1,6 @@
 package IuromInvoices.exception;
 
-public class ClientNotFoundException extends RuntimeException {
+public class ClientNotFoundException extends NotFoundException {
 
     public ClientNotFoundException() {
         super("Clientul nu a fost gasit!");

@@ -1,6 +1,6 @@
 package IuromInvoices.exception.advice;
 
-import IuromInvoices.exception.ClientNotFoundException;
+import IuromInvoices.exception.NotFoundException;
 import org.springframework.context.support.DefaultMessageSourceResolvable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,8 +13,8 @@ import java.util.stream.Collectors;
 @ControllerAdvice
 public class GlobalExceptionHandler {
 
-    @ExceptionHandler({ClientNotFoundException.class})
-    public ResponseEntity<String> handleNotFound(ClientNotFoundException exception) {
+    @ExceptionHandler({NotFoundException.class})
+    public ResponseEntity<String> handleNotFound(NotFoundException exception) {
         return ResponseEntity.status(HttpStatus.NOT_FOUND)
                 .body(exception.getMessage());
     }

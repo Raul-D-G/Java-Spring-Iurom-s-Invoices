@@ -43,8 +43,8 @@ public class ClientService {
     }
 
     public Client updateClient(UUID id, Client client) {
-        var updatedCleint = clientDao.updateClientById(id, client);
-        if (updatedCleint ==  1) {
+        var updatedClient = clientDao.updateClientById(id, client);
+        if (updatedClient ==  1) {
             return getClientById(id);
         } else {
             throw new ClientNotFoundException();
