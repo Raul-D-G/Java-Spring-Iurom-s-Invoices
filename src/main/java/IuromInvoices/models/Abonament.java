@@ -2,23 +2,29 @@ package IuromInvoices.models;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
 import java.util.Date;
 import java.util.UUID;
 
+@Entity
+@Table(name = "abonamente")
 public class Abonament {
 
-    @NotNull
+    @Id
     private UUID id;
-    @NotBlank
-    private final String nume;
-    @NotNull
-    private final float pret;
-    @NotNull
-    private final Date valabilitate;
-    @NotNull
-    private final int limitaFacturi;
+    @Column(unique = true, nullable = false)
+    private String nume;
+    @Column(nullable = false)
+    private float pret;
+    @Column(nullable = false)
+    private Date valabilitate;
+    @Column(nullable = false)
+    private int limitaFacturi;
+
+    public Abonament() {}
 
     public Abonament(@JsonProperty("nume") String nume,
                      @JsonProperty("pret") float pret,

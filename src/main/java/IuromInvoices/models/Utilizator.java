@@ -2,39 +2,42 @@ package IuromInvoices.models;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
+import javax.persistence.*;
 import java.util.UUID;
 
+@Entity
+@Table(name = "utilizatori")
 public class Utilizator {
 
-    @NotNull
+    @Id
     private UUID id;
-    @NotBlank
-    private final String nume;
-    @NotBlank
-    private final String mail;
-    @NotBlank
-    private final String cui;
-    @NotBlank
-    private final String adresa;
-    @NotBlank
-    private final String nrCont;
-    @NotNull
-    private final UUID idAbonament;
+    @Column(unique = true, nullable = false)
+    private  String nume;
+    @Column(unique = true, nullable = false)
+    private  String mail;
+    @Column(unique = true, nullable = false)
+    private  String cui;
+    @Column(nullable = false)
+    private  String adresa;
+    @Column(unique = true, nullable = false, name = "nrcont")
+    private  String nrCont;
+
+    @ManyToOne
+    @JoinColumn(name = "idAbonament") //FK
+    private Abonament abonament;
+
+    public Utilizator() {}
 
     public Utilizator(@JsonProperty("nume") String nume,
                       @JsonProperty("mail") String mail,
                       @JsonProperty("cui") String cui,
                       @JsonProperty("adresa") String adresa,
-                      @JsonProperty("nrCont") String nrCont,
-                      @JsonProperty("idAbonament") UUID idAbonament) {
+                      @JsonProperty("nrCont") String nrCont) {
         this.nume = nume;
         this.mail = mail;
         this.cui = cui;
         this.adresa = adresa;
         this.nrCont = nrCont;
-        this.idAbonament = idAbonament;
     }
 
     public Utilizator(@JsonProperty("id") UUID id,
@@ -42,15 +45,13 @@ public class Utilizator {
                       @JsonProperty("mail") String mail,
                       @JsonProperty("cui") String cui,
                       @JsonProperty("adresa") String adresa,
-                      @JsonProperty("nrCont") String nrCont,
-                      @JsonProperty("idAbonament") UUID idAbonament) {
+                      @JsonProperty("nrCont") String nrCont) {
         this.id = id;
         this.nume = nume;
         this.mail = mail;
         this.cui = cui;
         this.adresa = adresa;
         this.nrCont = nrCont;
-        this.idAbonament = idAbonament;
     }
 
     public void setId(UUID id) {
@@ -59,10 +60,6 @@ public class Utilizator {
 
     public String getMail() {
         return mail;
-    }
-
-    public UUID getIdAbonament() {
-        return idAbonament;
     }
 
     public UUID getId() {

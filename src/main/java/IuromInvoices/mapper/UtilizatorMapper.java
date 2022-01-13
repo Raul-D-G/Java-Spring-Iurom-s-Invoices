@@ -9,7 +9,7 @@ public class UtilizatorMapper {
 
     public Utilizator utilizatorRequestToUtilizator(UtilizatorRequest utilizatorRequest) {
         return new Utilizator(utilizatorRequest.getNume(), utilizatorRequest.getMail(), utilizatorRequest.getCui(),
-                utilizatorRequest.getAdresa(), utilizatorRequest.getNrCont(), utilizatorRequest.getIdAbonament());
+                utilizatorRequest.getAdresa(), utilizatorRequest.getNrCont());
     }
 
 }

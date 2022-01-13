@@ -1,9 +1,15 @@
-app:
+spring:
   datasource:
     jdbc-url: jdbc:postgresql://localhost:5432/Spring
     username: postgres
     password: root
     pool-size: 30
+  jpa:
+    show-sql: true
+    generate-ddl: true
+    hibernate:
+      ddl-auto: create
+    database: postgresql
 #
 #server:
 #  port: 8080
