@@ -1,4 +1,4 @@
-package IuromInvoices.models;
+package IuromInvoices.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -9,10 +9,8 @@ import javax.validation.constraints.NotNull;
 import java.util.Date;
 import java.util.UUID;
 
-public class Factura {
+public class FacturaRequest {
 
-    @NotNull
-    private UUID id;
     @NotBlank
     private final String serie;
     @NotNull
@@ -37,7 +35,7 @@ public class Factura {
     @NotBlank
     private final UUID idCurs;
 
-    public Factura(@JsonProperty("serie") String serie,
+    public FacturaRequest(@JsonProperty("serie") String serie,
                    @JsonProperty("nr") int nr,
                    @JsonProperty("dataEmitere") Date dataEmitere,
                    @JsonProperty("termenPlata") Date termenPlata,
@@ -58,38 +56,6 @@ public class Factura {
         this.idClient = idClient;
         this.idProdus = idProdus;
         this.idCurs = idCurs;
-    }
-
-    public Factura(@JsonProperty("id") UUID id,
-                   @JsonProperty("serie") String serie,
-                   @JsonProperty("nr") int nr,
-                   @JsonProperty("dataEmitere") Date dataEmitere,
-                   @JsonProperty("termenPlata") Date termenPlata,
-                   @JsonProperty("delegat") String delegat,
-                   @JsonProperty("tva") int tva,
-                   @JsonProperty("idUtilizator") UUID idUtilizator,
-                   @JsonProperty("idClient") UUID idClient,
-                   @JsonProperty("idProdus") UUID idProdus,
-                   @JsonProperty("idCurs") UUID idCurs) {
-        this.id = id;
-        this.serie = serie;
-        this.nr = nr;
-        this.dataEmitere = dataEmitere;
-        this.termenPlata = termenPlata;
-        this.delegat = delegat;
-        this.tva = tva;
-        this.idUtilizator = idUtilizator;
-        this.idClient = idClient;
-        this.idProdus = idProdus;
-        this.idCurs = idCurs;
-    }
-
-    public void setId(UUID id) {
-        this.id = id;
-    }
-
-    public UUID getId() {
-        return id;
     }
 
     public String getSerie() {
@@ -131,4 +97,5 @@ public class Factura {
     public UUID getIdCurs() {
         return idCurs;
     }
+
 }

@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import java.util.Date;
 import java.util.UUID;
 
 public class Abonament {
@@ -15,13 +16,13 @@ public class Abonament {
     @NotNull
     private final int pret;
     @NotBlank
-    private final String valabilitate;
+    private final Date valabilitate;
     @NotNull
     private final int limitaFacturi;
 
     public Abonament(@JsonProperty("nume") String nume,
                      @JsonProperty("pret") int pret,
-                     @JsonProperty("valabilitate") String valabilitate,
+                     @JsonProperty("valabilitate") Date valabilitate,
                      @JsonProperty("limitaFacturi") int limitaFacturi) {
         this.nume = nume;
         this.pret = pret;
@@ -32,7 +33,7 @@ public class Abonament {
     public Abonament(@JsonProperty("id") UUID id,
                      @JsonProperty("nume") String nume,
                      @JsonProperty("pret") int pret,
-                     @JsonProperty("valabilitate") String valabilitate,
+                     @JsonProperty("valabilitate") Date valabilitate,
                      @JsonProperty("limitaFacturi") int limitaFacturi) {
         this.id = id;
         this.nume = nume;
@@ -49,7 +50,7 @@ public class Abonament {
         return pret;
     }
 
-    public String getValabilitate() {
+    public Date getValabilitate() {
         return valabilitate;
     }
 
@@ -64,5 +65,4 @@ public class Abonament {
     public UUID getId() {
         return id;
     }
-
 }
