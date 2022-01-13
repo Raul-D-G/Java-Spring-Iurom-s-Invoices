@@ -3,10 +3,12 @@ package IuromInvoices.models;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.util.UUID;
 
 public class Client {
 
+    @NotNull
     private UUID id;
     @NotBlank
     private final String nume;
