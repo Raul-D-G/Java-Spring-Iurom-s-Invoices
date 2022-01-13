@@ -11,14 +11,14 @@ public class AbonamentRequest {
     @NotBlank
     private final String nume;
     @NotNull
-    private final int pret;
-    @NotBlank
+    private final float pret;
+    @NotNull
     private final Date valabilitate;
     @NotNull
     private final int limitaFacturi;
 
     public AbonamentRequest(@JsonProperty("nume") String nume,
-                            @JsonProperty("pret") int pret,
+                            @JsonProperty("pret") float pret,
                             @JsonProperty("valabilitate") Date valabilitate,
                             @JsonProperty("limitaFacturi") int limitaFacturi) {
         this.nume = nume;
@@ -31,7 +31,7 @@ public class AbonamentRequest {
         return nume;
     }
 
-    public int getPret() {
+    public float getPret() {
         return pret;
     }
 
