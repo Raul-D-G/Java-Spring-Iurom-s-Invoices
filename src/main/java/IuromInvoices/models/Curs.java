@@ -12,18 +12,18 @@ public class Curs {
     private UUID id;
     @NotBlank
     private final String nume;
-    @NotBlank
-    private final int paritate;
+    @NotNull
+    private final float paritate;
 
     public Curs(@JsonProperty("nume") String nume,
-                @JsonProperty("paritate") int paritate) {
+                @JsonProperty("paritate") float paritate) {
         this.nume = nume;
         this.paritate = paritate;
     }
 
     public Curs(@JsonProperty("id") UUID id,
                 @JsonProperty("nume") String nume,
-                @JsonProperty("pret") int paritate) {
+                @JsonProperty("paritate") float paritate) {
         this.id = id;
         this.nume = nume;
         this.paritate = paritate;
@@ -33,7 +33,7 @@ public class Curs {
         return nume;
     }
 
-    public int getParitate() {
+    public float getParitate() {
         return paritate;
     }
 

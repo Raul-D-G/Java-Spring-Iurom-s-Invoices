@@ -3,16 +3,17 @@ package IuromInvoices.dto;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 public class CursRequest {
 
     @NotBlank
     private final String nume;
-    @NotBlank
-    private final int paritate;
+    @NotNull
+    private final float paritate;
 
     public CursRequest(@JsonProperty("nume") String nume,
-                       @JsonProperty("paritate") int paritate) {
+                       @JsonProperty("paritate") float paritate) {
         this.nume = nume;
         this.paritate = paritate;
     }
@@ -21,7 +22,7 @@ public class CursRequest {
         return nume;
     }
 
-    public int getParitate() {
+    public float getParitate() {
         return paritate;
     }
 
