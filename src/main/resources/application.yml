@@ -4,3 +4,17 @@ app:
     username: postgres
     password: root
     pool-size: 30
+#
+#server:
+#  port: 8080
+#
+#springdoc:
+#  use-management-port: true
+#
+#management:
+#  server:
+#    port: 9090
+#  endpoints:
+#    web:
+#      exposure:
+#        include: openapi, swaggerui
