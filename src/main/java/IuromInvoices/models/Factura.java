@@ -1,7 +1,9 @@
 package IuromInvoices.models;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.hibernate.validator.constraints.Range;
 
+import javax.persistence.*;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
@@ -9,33 +11,53 @@ import javax.validation.constraints.NotNull;
 import java.util.Date;
 import java.util.UUID;
 
+@Entity
+@Table(name = "facturi")
 public class Factura {
 
-    @NotNull
-    private UUID id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
     @NotBlank
     private final String serie;
     @NotNull
     @Min(0)
     private final int nr;
-    @NotBlank
+    @NotNull
     private final Date dataEmitere;
-    @NotBlank
+    @NotNull
     private final Date termenPlata;
     @NotBlank
     private final String delegat;
     @NotNull
-    @Min(0)
-    @Max(24)
+    @Range(min = 0, max = 24)
     private final int tva;
-    @NotBlank
-    private final UUID idUtilizator;
-    @NotBlank
-    private final UUID idClient;
-    @NotBlank
-    private final UUID idProdus;
-    @NotBlank
-    private final UUID idCurs;
+
+    @NotNull
+    private long idUtilizator;
+    @NotNull
+    private UUID idClient;
+    @NotNull
+    private UUID idProdus;
+    @NotNull
+    private UUID idCurs;
+
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "utilizator_id", referencedColumnName = "id")
+    private Utilizator utilizator;
+
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "client_id", referencedColumnName = "id")
+    private Client client;
+
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "produs_id", referencedColumnName = "id")
+    private Produs produs;
+
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "curs_id", referencedColumnName = "id")
+    private Curs curs;
+
 
     public Factura(@JsonProperty("serie") String serie,
                    @JsonProperty("nr") int nr,
@@ -43,7 +65,7 @@ public class Factura {
                    @JsonProperty("termenPlata") Date termenPlata,
                    @JsonProperty("delegat") String delegat,
                    @JsonProperty("tva") int tva,
-                   @JsonProperty("idUtilizator") UUID idUtilizator,
+                   @JsonProperty("idUtilizator") long idUtilizator,
                    @JsonProperty("idClient") UUID idClient,
                    @JsonProperty("idProdus") UUID idProdus,
                    @JsonProperty("idCurs") UUID idCurs) {
@@ -60,14 +82,14 @@ public class Factura {
         this.idCurs = idCurs;
     }
 
-    public Factura(@JsonProperty("id") UUID id,
+    public Factura(@JsonProperty("id") Long id,
                    @JsonProperty("serie") String serie,
                    @JsonProperty("nr") int nr,
                    @JsonProperty("dataEmitere") Date dataEmitere,
                    @JsonProperty("termenPlata") Date termenPlata,
                    @JsonProperty("delegat") String delegat,
                    @JsonProperty("tva") int tva,
-                   @JsonProperty("idUtilizator") UUID idUtilizator,
+                   @JsonProperty("idUtilizator") long idUtilizator,
                    @JsonProperty("idClient") UUID idClient,
                    @JsonProperty("idProdus") UUID idProdus,
                    @JsonProperty("idCurs") UUID idCurs) {
@@ -84,11 +106,11 @@ public class Factura {
         this.idCurs = idCurs;
     }
 
-    public void setId(UUID id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
-    public UUID getId() {
+    public Long getId() {
         return id;
     }
 
@@ -116,7 +138,7 @@ public class Factura {
         return tva;
     }
 
-    public UUID getIdUtilizator() {
+    public long getIdUtilizator() {
         return idUtilizator;
     }
 
@@ -130,5 +152,21 @@ public class Factura {
 
     public UUID getIdCurs() {
         return idCurs;
+    }
+
+    public void setUtilizator(Utilizator utilizator) {
+        this.utilizator = utilizator;
+    }
+
+    public void setClient(Client client) {
+        this.client = client;
+    }
+
+    public void setProdus(Produs produs) {
+        this.produs = produs;
+    }
+
+    public void setCurs(Curs curs) {
+        this.curs = curs;
     }
 }

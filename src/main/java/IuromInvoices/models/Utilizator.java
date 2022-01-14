@@ -1,9 +1,11 @@
 package IuromInvoices.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.util.Set;
 
 @Entity
 @Table(name = "utilizatori")
@@ -28,6 +30,10 @@ public class Utilizator {
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "abonament_id", referencedColumnName = "id") //FK
     private Abonament abonament;
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "utilizator")
+    private Set<Factura> facturi;
 
     public Utilizator() {}
 
@@ -92,7 +98,6 @@ public class Utilizator {
     public long getIdAbonament() {
         return idAbonament;
     }
-
 
     public void adaugaAbonament(Abonament abonament) {
         this.abonament = abonament;

@@ -1,6 +1,7 @@
 package IuromInvoices.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.hibernate.validator.constraints.Range;
 
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
@@ -16,23 +17,22 @@ public class FacturaRequest {
     @NotNull
     @Min(0)
     private final int nr;
-    @NotBlank
+    @NotNull
     private final Date dataEmitere;
-    @NotBlank
+    @NotNull
     private final Date termenPlata;
     @NotBlank
     private final String delegat;
     @NotNull
-    @Min(0)
-    @Max(24)
+    @Range(min = 0, max = 24)
     private final int tva;
-    @NotBlank
-    private final UUID idUtilizator;
-    @NotBlank
+    @NotNull
+    private final long idUtilizator;
+    @NotNull
     private final UUID idClient;
-    @NotBlank
+    @NotNull
     private final UUID idProdus;
-    @NotBlank
+    @NotNull
     private final UUID idCurs;
 
     public FacturaRequest(@JsonProperty("serie") String serie,
@@ -41,7 +41,7 @@ public class FacturaRequest {
                    @JsonProperty("termenPlata") Date termenPlata,
                    @JsonProperty("delegat") String delegat,
                    @JsonProperty("tva") int tva,
-                   @JsonProperty("idUtilizator") UUID idUtilizator,
+                   @JsonProperty("idUtilizator") long idUtilizator,
                    @JsonProperty("idClient") UUID idClient,
                    @JsonProperty("idProdus") UUID idProdus,
                    @JsonProperty("idCurs") UUID idCurs) {
@@ -82,7 +82,7 @@ public class FacturaRequest {
         return tva;
     }
 
-    public UUID getIdUtilizator() {
+    public long getIdUtilizator() {
         return idUtilizator;
     }
 

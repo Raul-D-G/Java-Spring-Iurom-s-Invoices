@@ -3,6 +3,7 @@ package IuromInvoices.services;
 import IuromInvoices.dao.daoUtilizator.UtilizatorRepository;
 import IuromInvoices.exception.UtilizatorNotFoundException;
 import IuromInvoices.models.Utilizator;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -12,6 +13,7 @@ public class UtilizatorService {
 
     private UtilizatorRepository utilizatorRepository;
 
+    @Autowired
     public UtilizatorService(UtilizatorRepository utilizatorRepository) {
         this.utilizatorRepository = utilizatorRepository;
     }

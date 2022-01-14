@@ -1,13 +1,19 @@
 package IuromInvoices.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import java.util.Set;
 import java.util.UUID;
 
+@Entity
+@Table(name = "clients")
 public class Client {
 
+    @Id
     @NotNull
     private UUID id;
     @NotBlank
@@ -17,7 +23,12 @@ public class Client {
     @NotBlank
     private final String adresa;
     @NotBlank
+    @Column(unique = true, nullable = false, name = "nrcont")
     private final String nrCont;
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "client")
+    private Set<Factura> facturi;
 
     public Client(@JsonProperty("nume") String nume,
                   @JsonProperty("cui") String cui,
