@@ -7,12 +7,13 @@ import java.util.UUID;
 
 public interface AbonamentDao {
 
-    Abonament insertAbonament(UUID id, Abonament abonament);
+    Abonament insertAbonament(Long id, Abonament abonament);
 
     default Abonament insertAbonament(Abonament abonament) {
-        UUID id = UUID.randomUUID();
+//        UUID id = UUID.randomUUID();
+        long id = 1;
         return insertAbonament(id, abonament);
     }
 
-    Optional<Abonament> selectAbonamentById(UUID id);
+    Optional<Abonament> selectAbonamentById(Long id);
 }

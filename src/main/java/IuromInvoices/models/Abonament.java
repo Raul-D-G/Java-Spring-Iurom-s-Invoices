@@ -2,10 +2,7 @@ package IuromInvoices.models;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.util.Date;
 import java.util.UUID;
 
@@ -14,14 +11,15 @@ import java.util.UUID;
 public class Abonament {
 
     @Id
-    private UUID id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private long id;
     @Column(unique = true, nullable = false)
     private String nume;
     @Column(nullable = false)
     private float pret;
     @Column(nullable = false)
     private Date valabilitate;
-    @Column(nullable = false)
+    @Column(nullable = false, name = "limita_facturi")
     private int limitaFacturi;
 
     public Abonament() {}
@@ -36,7 +34,7 @@ public class Abonament {
         this.limitaFacturi = limitaFacturi;
     }
 
-    public Abonament(@JsonProperty("id") UUID id,
+    public Abonament(@JsonProperty("id") long id,
                      @JsonProperty("nume") String nume,
                      @JsonProperty("pret") float pret,
                      @JsonProperty("valabilitate") Date valabilitate,
@@ -64,11 +62,11 @@ public class Abonament {
         return limitaFacturi;
     }
 
-    public void setId(UUID id) {
+    public void setId(long id) {
         this.id = id;
     }
 
-    public UUID getId() {
+    public long getId() {
         return id;
     }
 }

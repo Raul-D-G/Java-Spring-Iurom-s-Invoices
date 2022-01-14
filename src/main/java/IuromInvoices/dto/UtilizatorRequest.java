@@ -4,7 +4,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
-import java.util.UUID;
 
 public class UtilizatorRequest {
 
@@ -19,14 +18,14 @@ public class UtilizatorRequest {
     @NotBlank
     private final String nrCont;
     @NotNull
-    private final UUID idAbonament;
+    private final long idAbonament;
 
     public UtilizatorRequest(@JsonProperty("nume") String nume,
                              @JsonProperty("mail") String mail,
                              @JsonProperty("cui") String cui,
                              @JsonProperty("adresa") String adresa,
                              @JsonProperty("nrCont") String nrCont,
-                             @JsonProperty("idAbonament") UUID idAbonament) {
+                             @JsonProperty("idAbonament") long idAbonament) {
         this.nume = nume;
         this.mail = mail;
         this.cui = cui;
@@ -39,7 +38,7 @@ public class UtilizatorRequest {
         return mail;
     }
 
-    public UUID getIdAbonament() {
+    public long getIdAbonament() {
         return idAbonament;
     }
 

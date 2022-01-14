@@ -3,14 +3,14 @@ package IuromInvoices.models;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import javax.persistence.*;
-import java.util.UUID;
 
 @Entity
 @Table(name = "utilizatori")
 public class Utilizator {
 
     @Id
-    private UUID id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private long id;
     @Column(unique = true, nullable = false)
     private  String nume;
     @Column(unique = true, nullable = false)
@@ -19,11 +19,11 @@ public class Utilizator {
     private  String cui;
     @Column(nullable = false)
     private  String adresa;
-    @Column(unique = true, nullable = false, name = "nrcont")
+    @Column(unique = true, nullable = false, name = "nr_cont")
     private  String nrCont;
 
     @ManyToOne
-    @JoinColumn(name = "idAbonament") //FK
+    @JoinColumn(name = "id_abonament") //FK
     private Abonament abonament;
 
     public Utilizator() {}
@@ -40,7 +40,7 @@ public class Utilizator {
         this.nrCont = nrCont;
     }
 
-    public Utilizator(@JsonProperty("id") UUID id,
+    public Utilizator(@JsonProperty("id") long id,
                       @JsonProperty("nume") String nume,
                       @JsonProperty("mail") String mail,
                       @JsonProperty("cui") String cui,
@@ -54,7 +54,7 @@ public class Utilizator {
         this.nrCont = nrCont;
     }
 
-    public void setId(UUID id) {
+    public void setId(long id) {
         this.id = id;
     }
 
@@ -62,7 +62,7 @@ public class Utilizator {
         return mail;
     }
 
-    public UUID getId() {
+    public long getId() {
         return id;
     }
 

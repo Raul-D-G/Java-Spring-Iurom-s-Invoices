@@ -1,31 +1,29 @@
 package IuromInvoices.services;
 
-import IuromInvoices.dao.daoAbonament.AbonamentDao;
+import IuromInvoices.dao.daoAbonament.AbonamentRepository;
 import IuromInvoices.exception.AbonamentNotFoundException;
 import IuromInvoices.models.Abonament;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
-import java.util.UUID;
 
 @Service
 public class AbonamentService {
 
-    private final AbonamentDao abonamentDao;
+    private AbonamentRepository abonamentRepository;
 
     @Autowired
-    public AbonamentService(@Qualifier("postgresAbonament") AbonamentDao abonamentDao) {
-        this.abonamentDao = abonamentDao;
+    public AbonamentService(AbonamentRepository abonamentRepository) {
+        this.abonamentRepository = abonamentRepository;
     }
 
     public Abonament addAbonament(Abonament abonament) {
-        return abonamentDao.insertAbonament(abonament);
+        return abonamentRepository.save(abonament);
     }
 
-    public Abonament getAbonamentById(UUID id) {
-        Optional<Abonament> abonamentOptional = abonamentDao.selectAbonamentById(id);
+    public Abonament getAbonamentById(Long id) {
+        Optional<Abonament> abonamentOptional = abonamentRepository.findById(id);
         if (abonamentOptional.isPresent()) {
             return abonamentOptional.get();
         } else {

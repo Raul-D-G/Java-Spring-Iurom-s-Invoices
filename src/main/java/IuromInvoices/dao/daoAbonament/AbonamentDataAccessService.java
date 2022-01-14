@@ -23,7 +23,7 @@ public class AbonamentDataAccessService implements AbonamentDao {
     }
 
     @Override
-    public Abonament insertAbonament(UUID id, Abonament abonament) {
+    public Abonament insertAbonament(Long id, Abonament abonament) {
         String sql = "INSERT INTO abonamente (" +
                 " id, " +
                 " nume, " +
@@ -44,10 +44,10 @@ public class AbonamentDataAccessService implements AbonamentDao {
     }
 
     @Override
-    public Optional<Abonament> selectAbonamentById(UUID id) {
+    public Optional<Abonament> selectAbonamentById(Long id) {
         final String sql = "SELECT id, nume, pret, valabilitate, limitaFacturi FROM abonamente where id = ?";
         RowMapper<Abonament> mapper = (resultSet, i) -> {
-            UUID abonamentId = UUID.fromString(resultSet.getString("id"));
+            Long abonamentId = resultSet.getLong("id");
             String nume = resultSet.getString("nume");
             float pret = resultSet.getFloat("pret");
             Date valabilitate = resultSet.getDate("valabilitate");

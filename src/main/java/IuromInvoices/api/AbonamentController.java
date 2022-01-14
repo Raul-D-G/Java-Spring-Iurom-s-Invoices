@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.net.URI;
-import java.util.UUID;
 
 @RequestMapping("api/v1/abonament")
 @RestController
@@ -39,7 +38,7 @@ public class AbonamentController {
     }
 
     @GetMapping(path = "{id}")
-    public ResponseEntity<Abonament> getAbonamentById(@PathVariable("id") UUID id) {
+    public ResponseEntity<Abonament> getAbonamentById(@PathVariable("id") Long id) {
         return ResponseEntity.ok().body(abonamentService.getAbonamentById(id));
     }
 }
