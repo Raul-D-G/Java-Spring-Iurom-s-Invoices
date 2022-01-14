@@ -2,7 +2,9 @@ package IuromInvoices.api;
 
 import IuromInvoices.dto.UtilizatorRequest;
 import IuromInvoices.mapper.UtilizatorMapper;
+import IuromInvoices.models.Abonament;
 import IuromInvoices.models.Utilizator;
+import IuromInvoices.services.AbonamentService;
 import IuromInvoices.services.UtilizatorService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -26,11 +28,13 @@ public class UtilizatorController {
 
     private final UtilizatorService utilizatorService;
     private final UtilizatorMapper utilizatorMapper;
+    private final AbonamentService abonamentService;
 
     @Autowired
-    public UtilizatorController(UtilizatorService utilizatorService, UtilizatorMapper utilizatorMapper) {
+    public UtilizatorController(UtilizatorService utilizatorService, UtilizatorMapper utilizatorMapper, AbonamentService abonamentService) {
         this.utilizatorService = utilizatorService;
         this.utilizatorMapper = utilizatorMapper;
+        this.abonamentService = abonamentService;
     }
 
     @Operation(summary = "Adaugare utilizator", description = "Adauga un nou utilizator in baza de date")
@@ -45,6 +49,8 @@ public class UtilizatorController {
     @PostMapping
     public ResponseEntity<Utilizator> addUtilizator(@Valid @NotNull @RequestBody UtilizatorRequest utilizatorRequest) {
         Utilizator utilizator = utilizatorMapper.utilizatorRequestToUtilizator(utilizatorRequest);
+        Abonament abonament = abonamentService.getAbonamentById(utilizator.getIdAbonament());
+        utilizator.adaugaAbonament(abonament);
         Utilizator savedUtilizator = utilizatorService.addUtilizator(utilizator);
         return ResponseEntity
                 .created(URI.create("/api/v1/utilizator/" + savedUtilizator.getId()))

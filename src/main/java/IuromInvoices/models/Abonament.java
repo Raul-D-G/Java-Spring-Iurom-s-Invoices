@@ -1,10 +1,11 @@
 package IuromInvoices.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import javax.persistence.*;
 import java.util.Date;
-import java.util.UUID;
+import java.util.Set;
 
 @Entity
 @Table(name = "abonamente")
@@ -21,6 +22,10 @@ public class Abonament {
     private Date valabilitate;
     @Column(nullable = false, name = "limita_facturi")
     private int limitaFacturi;
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "abonament")
+    private Set<Utilizator> utilizatori;
 
     public Abonament() {}
 

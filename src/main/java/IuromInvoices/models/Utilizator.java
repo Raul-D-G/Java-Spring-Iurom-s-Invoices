@@ -3,6 +3,7 @@ package IuromInvoices.models;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "utilizatori")
@@ -21,9 +22,11 @@ public class Utilizator {
     private  String adresa;
     @Column(unique = true, nullable = false, name = "nr_cont")
     private  String nrCont;
+    @NotNull
+    private long idAbonament;
 
-    @ManyToOne
-    @JoinColumn(name = "id_abonament") //FK
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "abonament_id", referencedColumnName = "id") //FK
     private Abonament abonament;
 
     public Utilizator() {}
@@ -32,12 +35,14 @@ public class Utilizator {
                       @JsonProperty("mail") String mail,
                       @JsonProperty("cui") String cui,
                       @JsonProperty("adresa") String adresa,
-                      @JsonProperty("nrCont") String nrCont) {
+                      @JsonProperty("nrCont") String nrCont,
+                      @JsonProperty("idAbonament") long idAbonament) {
         this.nume = nume;
         this.mail = mail;
         this.cui = cui;
         this.adresa = adresa;
         this.nrCont = nrCont;
+        this.idAbonament = idAbonament;
     }
 
     public Utilizator(@JsonProperty("id") long id,
@@ -45,13 +50,15 @@ public class Utilizator {
                       @JsonProperty("mail") String mail,
                       @JsonProperty("cui") String cui,
                       @JsonProperty("adresa") String adresa,
-                      @JsonProperty("nrCont") String nrCont) {
+                      @JsonProperty("nrCont") String nrCont,
+                      @JsonProperty("idAbonament") long idAbonament) {
         this.id = id;
         this.nume = nume;
         this.mail = mail;
         this.cui = cui;
         this.adresa = adresa;
         this.nrCont = nrCont;
+        this.idAbonament = idAbonament;
     }
 
     public void setId(long id) {
@@ -82,4 +89,16 @@ public class Utilizator {
         return nrCont;
     }
 
+    public long getIdAbonament() {
+        return idAbonament;
+    }
+
+
+    public void adaugaAbonament(Abonament abonament) {
+        this.abonament = abonament;
+    }
+
+    public Abonament getAbonament() {
+        return abonament;
+    }
 }

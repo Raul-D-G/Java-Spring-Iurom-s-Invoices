@@ -1,5 +1,6 @@
 package IuromInvoices.dto;
 
+import IuromInvoices.models.Abonament;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import javax.validation.constraints.NotBlank;
@@ -25,7 +26,7 @@ public class UtilizatorRequest {
                              @JsonProperty("cui") String cui,
                              @JsonProperty("adresa") String adresa,
                              @JsonProperty("nrCont") String nrCont,
-                             @JsonProperty("idAbonament") long idAbonament) {
+                             @JsonProperty("idAbonament") long idAbonament){
         this.nume = nume;
         this.mail = mail;
         this.cui = cui;
